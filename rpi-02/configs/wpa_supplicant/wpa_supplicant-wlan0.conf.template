@@ -1,0 +1,52 @@
+# wpa_supplicant configuration for wlan0 (WAN Backup)
+# Minicluster RPI-02 Gateway
+# 
+# Este archivo debe copiarse a: /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
+# IMPORTANTE: Editar este archivo con tus credenciales WiFi reales
+#
+# Para habilitar el servicio:
+#   sudo systemctl enable wpa_supplicant@wlan0
+#   sudo systemctl start wpa_supplicant@wlan0
+
+ctrl_interface=/run/wpa_supplicant
+update_config=1
+country=ES
+
+# Red WiFi para WAN Backup
+network={
+    # SSID de tu red WiFi
+    ssid="TU_SSID_WIFI"
+    
+    # Contraseña de tu red WiFi
+    # Opción 1: En texto plano (menos seguro)
+    psk="TU_PASSWORD_WIFI"
+    
+    # Opción 2: Hash encriptado (más seguro)
+    # Generar con: wpa_passphrase "TU_SSID" "TU_PASSWORD"
+    # Luego copiar solo la línea que empieza con psk=...
+    # psk=abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890
+    
+    # Prioridad (mayor número = mayor prioridad si hay múltiples redes)
+    priority=1
+    
+    # Tipo de autenticación (WPA/WPA2)
+    key_mgmt=WPA-PSK
+    
+    # Escaneo de diferentes bandas
+    # scan_freq=2412 2437 2462 5180 5200 5220 5240 5260 5280 5300 5320
+}
+
+# Ejemplo: Red WiFi adicional (si tienes múltiples opciones)
+# network={
+#     ssid="OTRA_RED_WIFI"
+#     psk="OTRO_PASSWORD"
+#     priority=0
+#     key_mgmt=WPA-PSK
+# }
+
+# Para redes WiFi abiertas (sin contraseña)
+# network={
+#     ssid="RED_ABIERTA"
+#     key_mgmt=NONE
+#     priority=0
+# }

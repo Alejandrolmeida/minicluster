@@ -1,0 +1,27 @@
+[Unit]
+Description=WAN Failover Service
+Documentation=https://github.com/alejandrolmeida/minicluster
+After=network-online.target systemd-networkd.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/wan-failover.sh
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security hardening
+NoNewPrivileges=false
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/log
+
+# Resource limits
+CPUQuota=10%
+MemoryMax=50M
+
+[Install]
+WantedBy=multi-user.target

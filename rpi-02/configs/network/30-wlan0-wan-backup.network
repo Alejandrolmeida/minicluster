@@ -1,0 +1,19 @@
+# systemd-networkd configuration for wlan0 (WAN Backup)
+# RPI-02 Gateway - WAN Backup Interface (WiFi)
+# Obtiene IP por DHCP del router
+# Métrica: 200 (mayor = menor prioridad que eth1)
+#
+# Nota: Requiere wpa_supplicant@wlan0 para autenticación WiFi
+
+[Match]
+Name=wlan0
+
+[Network]
+Description=WAN Backup Interface (WiFi)
+DHCP=yes
+DNSDefaultRoute=no
+
+[DHCP]
+UseDNS=yes
+UseRoutes=yes
+RouteMetric=200

@@ -1,0 +1,17 @@
+# systemd-networkd configuration for eth1 (WAN Primary)
+# RPI-02 Gateway - WAN Primary Interface (Ethernet)
+# Obtiene IP por DHCP del router
+# Métrica: 100 (menor = mayor prioridad)
+
+[Match]
+Name=eth1
+
+[Network]
+Description=WAN Primary Interface (Ethernet)
+DHCP=yes
+DNSDefaultRoute=yes
+
+[DHCP]
+UseDNS=yes
+UseRoutes=yes
+RouteMetric=100

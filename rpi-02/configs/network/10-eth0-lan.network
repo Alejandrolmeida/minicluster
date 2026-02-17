@@ -1,0 +1,18 @@
+# systemd-networkd configuration for eth0 (LAN)
+# RPI-02 Gateway - Cluster LAN Interface
+# Red: 192.168.50.0/24
+# Gateway IP: 192.168.50.1
+#
+# DHCP Server: dnsmasq (no usar DHCPServer de systemd-networkd)
+
+[Match]
+Name=eth0
+
+[Network]
+Description=Cluster LAN Interface
+Address=192.168.50.1/24
+IPForward=yes
+IPMasquerade=no
+
+# DNS apunta a este mismo servidor (dnsmasq)
+DNS=192.168.50.1
