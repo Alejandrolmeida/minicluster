@@ -120,8 +120,9 @@ sudo systemctl stop dhcpcd
 
 ```bash
 sudo systemctl enable systemd-networkd
-sudo systemctl enable systemd-resolved
 ```
+
+> **Nota**: Raspberry Pi OS (Legacy) Lite no incluye systemd-resolved por defecto. Configuraremos DNS manualmente más adelante.
 
 #### 3.3 Crear Configuraciones de Red
 
@@ -163,7 +164,25 @@ sudo systemctl enable wpa_supplicant@wlan0
 sudo systemctl start wpa_supplicant@wlan0
 ```
 
-#### 3.5 Habilitar IP Forwarding
+#### 3.5 Configurar DNS Manualmente
+
+Raspberry Pi OS (Legacy) no incluye systemd-resolved, por lo que necesitamos configurar DNS manualmente:
+
+```bash
+# Configurar servidores DNS
+sudo tee /etc/resolv.conf > /dev/null << EOF
+nameserver 8.8.8.8
+nameserver 1.1.1.1
+nameserver 192.168.18.1
+EOF
+
+# Hacer el archivo inmutable para evitar que sea sobreescrito
+sudo chattr +i /etc/resolv.conf
+```
+
+> **Nota**: El comando `chattr +i` hace que /etc/resolv.conf sea inmutable, evitando que systemd-networkd lo sobrescriba. Para modificarlo en el futuro, primero ejecuta `sudo chattr -i /etc/resolv.conf`.
+
+#### 3.6 Habilitar IP Forwarding
 
 ```bash
 # Editar /etc/sysctl.conf
@@ -177,11 +196,16 @@ net.ipv6.conf.all.forwarding=1
 sudo sysctl -p
 ```
 
-#### 3.6 Reiniciar Network Services
+#### 3.7 Reiniciar Network Services
 
 ```bash
 sudo systemctl restart systemd-networkd
-sudo systemctl restart systemd-resolved
+```
+
+Verificar que tienes conectividad a Internet:
+
+```bash
+ping -c 3 www.google.com
 ```
 
 ### 4. Configuración de DHCP/DNS (dnsmasq)

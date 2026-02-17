@@ -98,7 +98,6 @@ fi
 
 # Habilitar systemd-networkd
 systemctl enable systemd-networkd
-systemctl enable systemd-resolved
 print_success "systemd-networkd habilitado"
 
 # Copiar configuraciones de red
@@ -106,6 +105,16 @@ print_info "Copiando configuraciones de red..."
 cp "$REPO_DIR/configs/network/"*.network /etc/systemd/network/
 chmod 644 /etc/systemd/network/*.network
 print_success "Configuraciones de red copiadas"
+
+# Configurar DNS manualmente (Raspberry Pi OS Legacy no tiene systemd-resolved)
+print_info "Configurando DNS..."
+cat > /etc/resolv.conf << 'DNSEOF'
+nameserver 8.8.8.8
+nameserver 1.1.1.1
+nameserver 192.168.18.1
+DNSEOF
+chattr +i /etc/resolv.conf  # Hacer inmutable
+print_success "DNS configurado (8.8.8.8, 1.1.1.1)"
 
 # 5. Habilitar IP Forwarding
 print_header "5. Habilitando IP Forwarding"
