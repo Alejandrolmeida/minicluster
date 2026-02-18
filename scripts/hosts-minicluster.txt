@@ -1,0 +1,21 @@
+# Hosts del MiniCluster - Acceso via Tailscale Subnet Routing
+# Añadir estas líneas al archivo: C:\Windows\System32\drivers\etc\hosts
+#
+# Para editar (requiere permisos de administrador):
+# 1. Abre Notepad como administrador
+# 2. Abre: C:\Windows\System32\drivers\etc\hosts
+# 3. Copia las líneas de abajo al final
+# 4. Guarda y cierra
+
+# MiniCluster - Nodos Jetson Nano (GPU)
+192.168.50.11   jetson-01
+192.168.50.12   jetson-02  
+192.168.50.13   jetson-03
+
+# MiniCluster - Nodos Raspberry Pi
+192.168.50.1    rpi-02 gateway
+192.168.50.23   rpi-03
+192.168.50.25   rpi-05
+
+# MiniCluster - Switch
+192.168.50.2    cluster-switch

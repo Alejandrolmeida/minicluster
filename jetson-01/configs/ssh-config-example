@@ -1,0 +1,36 @@
+# Configuración SSH para Jetson Nano
+# Copiar al archivo ~/.ssh/config (Linux/Mac) o C:\Users\<usuario>\.ssh\config (Windows)
+
+Host jetson-01
+    HostName 192.168.50.11
+    User alejandrolmeida
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    StrictHostKeyChecking no
+    UserKnownHostsFile ~/.ssh/known_hosts
+
+Host jetson-02
+    HostName 192.168.50.12
+    User alejandrolmeida
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    StrictHostKeyChecking no
+    UserKnownHostsFile ~/.ssh/known_hosts
+
+Host jetson-03
+    HostName 192.168.50.13
+    User alejandrolmeida
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    StrictHostKeyChecking no
+    UserKnownHostsFile ~/.ssh/known_hosts
+
+# Configuración para todas las jetsons
+Host jetson-*
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    Compression yes
+    TCPKeepAlive yes

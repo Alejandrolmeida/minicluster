@@ -1,0 +1,31 @@
+{
+  "// Configuración para VS Code Remote SSH en Jetson Nano": "",
+  "// Copiar esta configuración a tu settings.json de VS Code": "",
+  "// Ctrl+Shift+P -> Preferences: Open User Settings (JSON)": "",
+
+  "remote.SSH.serverInstallPath": {
+    "jetson-01": "/home/alejandrolmeida/.vscode-server-legacy",
+    "jetson-02": "/home/alejandrolmeida/.vscode-server-legacy",
+    "jetson-03": "/home/alejandrolmeida/.vscode-server-legacy"
+  },
+
+  "remote.SSH.useLocalServer": false,
+  "remote.SSH.useExecServer": true,
+  
+  "remote.SSH.remotePlatform": {
+    "jetson-01": "linux",
+    "jetson-02": "linux",
+    "jetson-03": "linux"
+  },
+
+  "remote.SSH.showLoginTerminal": true,
+  "remote.SSH.loglevel": 2,
+  
+  "// Opcional: Prevenir actualizaciones automáticas del servidor": "",
+  "remote.SSH.localServerDownload": "auto",
+  
+  "// Opcional: Configuración de timeouts": "",
+  "remote.SSH.connectTimeout": 30,
+  
+  "// NOTA: Ajusta el usuario si no es 'alejandrolmeida'": ""
+}

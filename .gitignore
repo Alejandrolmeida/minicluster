@@ -16,6 +16,11 @@ tmp/
 temp/
 *.tmp
 
+# Debug and context files
+error*.txt
+CONTEXT_MANAGEMENT.md
+CONTINUATION_PROMPT.md
+
 # Sensitive files
 *.key
 *.pem

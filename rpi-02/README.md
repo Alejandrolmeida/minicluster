@@ -11,7 +11,7 @@
 - 📡 **DNS Server**: Resolución de nombres en `.cluster.local`
 - 🔒 **Firewall**: NAT y filtrado de tráfico con nftables
 - 🔄 **WAN Failover**: Cambio automático entre Ethernet y WiFi
-- 🔐 **VPN Gateway**: Tailscale para acceso remoto seguro
+- 🔐 **VPN Subnet Router**: Tailscale subnet router (anuncia 192.168.50.0/24)
 
 ## 🖧 Configuración de Red
 
