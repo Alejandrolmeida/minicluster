@@ -65,8 +65,11 @@ rpi-02/
 │   │   ├── dnsmasq.conf              # Configuración principal
 │   │   └── cluster.hosts             # Hosts estáticos del cluster
 │   ├── firewall/                      # nftables
-│   │   └── nftables.conf             # Reglas de firewall y NAT
+│   │   └── nftables.conf             # Reglas de firewall (referencia)
+│   ├── nftables.d/                    # nftables modular
+│   │   └── cluster-nat.conf          # NAT para cluster LAN
 │   ├── systemd/                       # Servicios systemd
+│   │   ├── cluster-nat.service       # Servicio NAT para cluster LAN
 │   │   └── wan-failover.service      # Servicio de failover WAN
 │   └── wpa_supplicant/                # WiFi
 │       └── wpa_supplicant-wlan0.conf.template  # Template WiFi
@@ -143,13 +146,19 @@ sudo systemctl restart wan-failover     # Failover
 # 1. Verificar IP forwarding
 sysctl net.ipv4.ip_forward  # Debe ser 1
 
-# 2. Verificar NAT
-sudo nft list ruleset | grep masquerade
+# 2. Verificar NAT (debe mostrar regla para 192.168.50.0/24)
+sudo nft list table ip nat
 
-# 3. Verificar rutas
+# 3. Verificar servicio cluster-nat
+sudo systemctl status cluster-nat
+
+# 4. Si falta la regla NAT, reiniciar el servicio
+sudo systemctl restart cluster-nat
+
+# 5. Verificar rutas
 ip route show
 
-# 4. Verificar conectividad del gateway
+# 6. Verificar conectividad del gateway
 ping -c 3 8.8.8.8
 ```
 

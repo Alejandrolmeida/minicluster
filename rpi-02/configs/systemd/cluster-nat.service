@@ -1,0 +1,13 @@
+[Unit]
+Description=Cluster LAN NAT configuration
+Documentation=https://github.com/alejandrolmeida/minicluster
+After=nftables.service network-online.target tailscaled.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/nft -f /etc/nftables.d/cluster-nat.conf
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
