@@ -43,9 +43,11 @@ jetson jetson jetson rpi   rpi
 | **rpi-02** | 192.168.50.1 | Gateway/DHCP/DNS | 🟢 Configurado |
 | **rpi-03** | 192.168.50.23 | Worker | ⚪ Pendiente |
 | **rpi-05** | 192.168.50.25 | Worker | ⚪ Pendiente |
-| **jetson-01** | 192.168.50.11 | Compute | ⚪ Pendiente |
-| **jetson-02** | 192.168.50.12 | Compute | ⚪ Pendiente |
-| **jetson-03** | 192.168.50.13 | Compute | ⚪ Pendiente |
+| **jetson-01** | 192.168.50.11 | Compute | 🟡 VS Code Remote configurado |
+| **jetson-02** | 192.168.50.12 | Compute | 🟡 VS Code Remote configurado |
+| **jetson-03** | 192.168.50.13 | Compute | 🟡 VS Code Remote configurado |
+
+> **⚠️ Nota sobre Jetson Nano**: Las Jetson Nano tienen GLIBC 2.27, incompatible con VS Code Server moderno. Ver [jetson-01/docs/VSCODE_REMOTE_SSH.md](jetson-01/docs/VSCODE_REMOTE_SSH.md) para configuración.
 
 ## 🌐 Red y Conectividad
 
@@ -135,6 +137,40 @@ Cada dispositivo tiene su propia carpeta con:
 - **scripts/**: Scripts de instalación y mantenimiento
 - **docs/**: Documentación adicional y notas
 
+### Documentación Específica por Nodo
+
+#### Raspberry Pi
+- **rpi-02**: [Gateway configurado](rpi-02/README.md) - DHCP/DNS/Firewall/WAN Failover
+
+#### Jetson Nano
+- **jetson-01**: [VS Code Remote SSH](jetson-01/docs/VSCODE_REMOTE_SSH.md) - Configuración para GLIBC 2.27
+  - [Inicio Rápido](jetson-01/docs/QUICKSTART.md)
+  - [Troubleshooting](jetson-01/docs/TROUBLESHOOTING.md)
+
+## 💻 Desarrollo Remoto
+
+### VS Code Remote SSH en Jetson Nano
+
+Las Jetson Nano requieren configuración especial debido a incompatibilidad de GLIBC:
+
+```bash
+# En la Jetson
+cd ~/minicluster/jetson-01
+./scripts/install-vscode-server.sh
+```
+
+Luego configura tu `settings.json` en VS Code:
+
+```json
+{
+  "remote.SSH.serverInstallPath": {
+    "jetson-01": "/home/alejandrolmeida/.vscode-server-legacy"
+  }
+}
+```
+
+📚 **Ver guía completa**: [jetson-01/docs/VSCODE_REMOTE_SSH.md](jetson-01/docs/VSCODE_REMOTE_SSH.md)
+
 ## 🔐 Seguridad
 
 - ✅ SSH con autenticación por clave pública únicamente
@@ -159,6 +195,10 @@ Cada dispositivo tiene su propia carpeta con:
   - [x] Dual WAN con failover automático
   - [x] DHCP/DNS Server
   - [x] Tailscale VPN
+- [x] VS Code Remote SSH para Jetson Nano
+  - [x] Servidor compatible instalado
+  - [x] Documentación completa
+  - [x] Scripts de instalación
 - [ ] Nodos worker configurados
 - [ ] Kubernetes desplegado
 - [ ] Almacenamiento distribuido
